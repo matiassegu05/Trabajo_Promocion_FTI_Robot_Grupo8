@@ -11,7 +11,7 @@ class AutomataPila:
     }
 
     traduccion = {
-        "arriba": "ARR",
+        "arriba": "AR",
         "abajo": "AB",
         "izquierda": "IZ",
         "derecha": "DR",
