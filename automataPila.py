@@ -38,6 +38,10 @@ class AutomataPila:
             case _:
                 raise ValueError(f"Se rechaza {accion}, queda en estado= {self.estado} y tope={tope}")
 
+    def paso(self, accion, recorrido):
+        self.transicion(accion)
+        recorrido.append((len(recorrido) + 1, accion, self.estado, self.pila.mostrar_pila()))
+
     def validar(self, cadena):
         self.reiniciar()
         tokens = cadena.split()
@@ -50,20 +54,14 @@ class AutomataPila:
                 raise KeyError(f"Error léxico en token {indice}: {accion}")
 
         recorrido = []
-        for indice, accion in enumerate(tokens, start=1):
-            self.transicion(accion)
-            recorrido.append((indice, accion, self.estado, self.pila.mostrar_pila()))
+        for accion in tokens:
+            self.paso(accion, recorrido)
+            if accion == "agarrar":
+                while self.pila.tope() != "Z0":
+                    self.paso(self.pila.tope(), recorrido)
+                self.paso("soltar", recorrido)
 
         if self.estado != "q_funcionando" or not self.pila.pila_vacia():
             raise ValueError(f"Rechazado por final invalido, {self.estado}, quedando en la pila {self.pila.mostrar_pila()}")
-        
+
         return recorrido, self.pila.cantidad_pila
-
-if __name__ == "__main__":
-    ap = AutomataPila()
-    programa = "derecha viaje arriba izquierda agarrar derecha abajo soltar finviaje"
-
-    traza, altura_max = ap.validar(programa)
-    for paso in traza:
-        print(paso)
-    print("Altura máxima:", altura_max)  
