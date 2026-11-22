@@ -1,0 +1,69 @@
+indice,orden,estado_pila,pila,posicion,carga
+1,izquierda,q0,Z0,"(6, 1)",No
+2,arriba,q0,Z0,"(5, 1)",No
+3,arriba,q0,Z0,"(4, 1)",No
+4,arriba,q0,Z0,"(3, 1)",No
+5,viaje,q_moviendose,Z0,"(3, 1)",No
+6,arriba,q_moviendose,AB Z0,"(2, 1)",No
+7,arriba,q_moviendose,AB AB Z0,"(1, 1)",No
+8,agarrar,q_volviendo,AB AB Z0,"(1, 1)",Si
+9,abajo,q_volviendo,AB Z0,"(2, 1)",Si
+10,abajo,q_volviendo,Z0,"(3, 1)",Si
+11,soltar,q_terminado,Z0,"(3, 1)",No
+12,finviaje,q_funcionando,Z0,"(3, 1)",No
+13,abajo,q_funcionando,Z0,"(4, 1)",No
+14,viaje,q_moviendose,Z0,"(4, 1)",No
+15,derecha,q_moviendose,IZ Z0,"(4, 2)",No
+16,arriba,q_moviendose,AB IZ Z0,"(3, 2)",No
+17,derecha,q_moviendose,IZ AB IZ Z0,"(3, 3)",No
+18,arriba,q_moviendose,AB IZ AB IZ Z0,"(2, 3)",No
+19,agarrar,q_volviendo,AB IZ AB IZ Z0,"(2, 3)",Si
+20,abajo,q_volviendo,IZ AB IZ Z0,"(3, 3)",Si
+21,izquierda,q_volviendo,AB IZ Z0,"(3, 2)",Si
+22,abajo,q_volviendo,IZ Z0,"(4, 2)",Si
+23,izquierda,q_volviendo,Z0,"(4, 1)",Si
+24,soltar,q_terminado,Z0,"(4, 1)",No
+25,finviaje,q_funcionando,Z0,"(4, 1)",No
+26,abajo,q_funcionando,Z0,"(5, 1)",No
+27,viaje,q_moviendose,Z0,"(5, 1)",No
+28,derecha,q_moviendose,IZ Z0,"(5, 2)",No
+29,arriba,q_moviendose,AB IZ Z0,"(4, 2)",No
+30,derecha,q_moviendose,IZ AB IZ Z0,"(4, 3)",No
+31,derecha,q_moviendose,IZ IZ AB IZ Z0,"(4, 4)",No
+32,derecha,q_moviendose,IZ IZ IZ AB IZ Z0,"(4, 5)",No
+33,arriba,q_moviendose,AB IZ IZ IZ AB IZ Z0,"(3, 5)",No
+34,arriba,q_moviendose,AB AB IZ IZ IZ AB IZ Z0,"(2, 5)",No
+35,arriba,q_moviendose,AB AB AB IZ IZ IZ AB IZ Z0,"(1, 5)",No
+36,agarrar,q_volviendo,AB AB AB IZ IZ IZ AB IZ Z0,"(1, 5)",Si
+37,abajo,q_volviendo,AB AB IZ IZ IZ AB IZ Z0,"(2, 5)",Si
+38,abajo,q_volviendo,AB IZ IZ IZ AB IZ Z0,"(3, 5)",Si
+39,abajo,q_volviendo,IZ IZ IZ AB IZ Z0,"(4, 5)",Si
+40,izquierda,q_volviendo,IZ IZ AB IZ Z0,"(4, 4)",Si
+41,izquierda,q_volviendo,IZ AB IZ Z0,"(4, 3)",Si
+42,izquierda,q_volviendo,AB IZ Z0,"(4, 2)",Si
+43,abajo,q_volviendo,IZ Z0,"(5, 2)",Si
+44,izquierda,q_volviendo,Z0,"(5, 1)",Si
+45,soltar,q_terminado,Z0,"(5, 1)",No
+46,finviaje,q_funcionando,Z0,"(5, 1)",No
+47,abajo,q_funcionando,Z0,"(6, 1)",No
+48,viaje,q_moviendose,Z0,"(6, 1)",No
+49,derecha,q_moviendose,IZ Z0,"(6, 2)",No
+50,derecha,q_moviendose,IZ IZ Z0,"(6, 3)",No
+51,derecha,q_moviendose,IZ IZ IZ Z0,"(6, 4)",No
+52,derecha,q_moviendose,IZ IZ IZ IZ Z0,"(6, 5)",No
+53,derecha,q_moviendose,IZ IZ IZ IZ IZ Z0,"(6, 6)",No
+54,arriba,q_moviendose,AB IZ IZ IZ IZ IZ Z0,"(5, 6)",No
+55,arriba,q_moviendose,AB AB IZ IZ IZ IZ IZ Z0,"(4, 6)",No
+56,arriba,q_moviendose,AB AB AB IZ IZ IZ IZ IZ Z0,"(3, 6)",No
+57,agarrar,q_volviendo,AB AB AB IZ IZ IZ IZ IZ Z0,"(3, 6)",Si
+58,abajo,q_volviendo,AB AB IZ IZ IZ IZ IZ Z0,"(4, 6)",Si
+59,abajo,q_volviendo,AB IZ IZ IZ IZ IZ Z0,"(5, 6)",Si
+60,abajo,q_volviendo,IZ IZ IZ IZ IZ Z0,"(6, 6)",Si
+61,izquierda,q_volviendo,IZ IZ IZ IZ Z0,"(6, 5)",Si
+62,izquierda,q_volviendo,IZ IZ IZ Z0,"(6, 4)",Si
+63,izquierda,q_volviendo,IZ IZ Z0,"(6, 3)",Si
+64,izquierda,q_volviendo,IZ Z0,"(6, 2)",Si
+65,izquierda,q_volviendo,Z0,"(6, 1)",Si
+66,soltar,q_terminado,Z0,"(6, 1)",No
+67,finviaje,q_funcionando,Z0,"(6, 1)",No
+68,derecha,q_funcionando,Z0,"(6, 2)",No
