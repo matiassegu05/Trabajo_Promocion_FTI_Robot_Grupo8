@@ -10,6 +10,14 @@ class AutomataPila:
         "derecha": "izquierda",
     }
 
+    traduccion = {
+        "arriba": "ARR",
+        "abajo": "AB",
+        "izquierda": "IZ",
+        "derecha": "DR",
+    }
+    destraduccion = {codigo: orden for orden, codigo in traduccion.items()}
+
     def __init__(self):
         self.reiniciar()
 
@@ -26,11 +34,11 @@ class AutomataPila:
             case ("q0" | "q_funcionando", "viaje"):
                 self.estado = "q_moviendose"
             case ("q_moviendose", m) if m in self.inverso:
-                self.pila.agregar(self.inverso[m])
+                self.pila.agregar(self.traduccion[self.inverso[m]])
             case ("q_moviendose", "agarrar"):
                 self.estado = "q_volviendo"
-            case ("q_volviendo",m) if m in self.inverso and tope == m:
-                self.pila.sacar()
+            case ("q_volviendo", m) if m in self.inverso and self.destraduccion.get(tope) == m:
+                orden_sacada = self.destraduccion[self.pila.sacar()]
             case ("q_volviendo", "soltar") if tope == "Z0":
                 self.estado = "q_terminado"
             case ("q_terminado", "finviaje") if tope == "Z0":
@@ -47,20 +55,15 @@ class AutomataPila:
         tokens = cadena.split()
 
         if not tokens:
-            raise ValueError("Error: la cadena esta vacia")
-        
+            raise ValueError("Error: la cadena esta vacia") 
         for indice, accion in enumerate(tokens, start=1):
             if accion not in self.alfabeto:
                 raise KeyError(f"Error léxico en token {indice}: {accion}")
 
         recorrido = []
+
         for accion in tokens:
             self.paso(accion, recorrido)
-            if accion == "agarrar":
-                while self.pila.tope() != "Z0":
-                    self.paso(self.pila.tope(), recorrido)
-                self.paso("soltar", recorrido)
-
         if self.estado != "q_funcionando" or not self.pila.pila_vacia():
             raise ValueError(f"Rechazado por final invalido, {self.estado}, quedando en la pila {self.pila.mostrar_pila()}")
 
