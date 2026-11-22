@@ -1,5 +1,5 @@
 class Pila:
-    def __init__(self,fondo="Z0"):
+    def __init__(self, fondo="Z0"):
         self.fondo = fondo
         self.elementos = [fondo]
         self.cantidad_pila = 0
@@ -18,4 +18,4 @@ class Pila:
         return len(self.elementos) == 1 and self.elementos[0] == self.fondo
 
     def mostrar_pila(self):
-        return " ". join(reversed(self.elementos))
+        return " ".join(reversed(self.elementos))

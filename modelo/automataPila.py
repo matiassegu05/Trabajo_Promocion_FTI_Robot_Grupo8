@@ -1,9 +1,9 @@
-from pila import Pila
+from modelo.pila import Pila
 
 class AutomataPila:
-    alfabeto ={"arriba", "abajo", "izquierda", "derecha", "agarrar", "soltar", "viaje", "finviaje"}
+    alfabeto = {"arriba", "abajo", "izquierda", "derecha", "agarrar", "soltar", "viaje", "finviaje"}
 
-    inverso ={
+    inverso = {
         "arriba": "abajo",
         "abajo": "arriba",
         "izquierda": "derecha",
@@ -29,7 +29,7 @@ class AutomataPila:
         tope = self.pila.tope()
 
         match (self.estado, accion):
-            case ("q0" | "q_funcionando", m) if m in self.inverso: 
+            case ("q0" | "q_funcionando", m) if m in self.inverso:
                 return
             case ("q0" | "q_funcionando", "viaje"):
                 self.estado = "q_moviendose"
@@ -38,13 +38,13 @@ class AutomataPila:
             case ("q_moviendose", "agarrar"):
                 self.estado = "q_volviendo"
             case ("q_volviendo", m) if m in self.inverso and self.destraduccion.get(tope) == m:
-                orden_sacada = self.destraduccion[self.pila.sacar()]
+                self.pila.sacar()
             case ("q_volviendo", "soltar") if tope == "Z0":
                 self.estado = "q_terminado"
             case ("q_terminado", "finviaje") if tope == "Z0":
                 self.estado = "q_funcionando"
             case _:
-                raise ValueError(f"Se rechaza {accion}, queda en estado= {self.estado} y tope={tope}")
+                raise ValueError(f"Se rechaza '{accion}', queda en estado={self.estado} y tope={tope}")
 
     def paso(self, accion, recorrido):
         self.transicion(accion)
@@ -55,16 +55,16 @@ class AutomataPila:
         tokens = cadena.split()
 
         if not tokens:
-            raise ValueError("Error: la cadena esta vacia") 
+            raise ValueError("Error: la cadena está vacía")
         for indice, accion in enumerate(tokens, start=1):
             if accion not in self.alfabeto:
-                raise KeyError(f"Error léxico en token {indice}: {accion}")
+                raise KeyError(f"Error léxico en token {indice}: '{accion}'")
 
         recorrido = []
-
         for accion in tokens:
             self.paso(accion, recorrido)
+
         if self.estado != "q_funcionando" or not self.pila.pila_vacia():
-            raise ValueError(f"Rechazado por final invalido, {self.estado}, quedando en la pila {self.pila.mostrar_pila()}")
+            raise ValueError(f"Rechazado por final inválido ({self.estado}), quedando en la pila: {self.pila.mostrar_pila()}")
 
         return recorrido, self.pila.cantidad_pila

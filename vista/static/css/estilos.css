@@ -1,0 +1,455 @@
+:root {
+  --bg: #0f172a;
+  --panel: #1e293b;
+  --border: #334155;
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --accent: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.topbar {
+  background: #0b1120;
+  border-bottom: 1px solid var(--border);
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.topbar h1 {
+  font-size: 1.25rem;
+  color: #60a5fa;
+}
+
+.topbar p {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.badge-instancia {
+  background: #1e3a8a;
+  color: #bfdbfe;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 340px 1fr 370px;
+  gap: 16px;
+  padding: 16px 20px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1150px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.panel h2 {
+  font-size: 1.05rem;
+  color: #e2e8f0;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+}
+
+.panel h3 {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.presets {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+select, textarea {
+  background: #0f172a;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 0.88rem;
+}
+
+textarea {
+  font-family: "Consolas", monospace;
+  resize: vertical;
+  line-height: 1.4;
+}
+
+.acciones-principales {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  border: none;
+  border-radius: 8px;
+  padding: 9px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.15s;
+  font-size: 0.88rem;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  flex: 1;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.btn-secondary {
+  background: #334155;
+  color: #e2e8f0;
+}
+
+.btn-accent {
+  background: var(--accent);
+  color: #064e3b;
+}
+
+.btn-sm {
+  background: #334155;
+  color: #fff;
+  padding: 7px 11px;
+}
+
+.banner {
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 0.86rem;
+  line-height: 1.35;
+}
+
+.banner.oculto {
+  display: none;
+}
+
+.banner.ok {
+  background: rgba(16, 185, 129, 0.16);
+  border: 1px solid var(--accent);
+  color: #6ee7b7;
+}
+
+.banner.warn {
+  background: rgba(245, 158, 11, 0.16);
+  border: 1px solid var(--warning);
+  color: #fcd34d;
+}
+
+.banner.error {
+  background: rgba(239, 68, 68, 0.16);
+  border: 1px solid var(--danger);
+  color: #fca5a5;
+}
+
+.metricas-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.metrica-card {
+  background: #0f172a;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.metrica-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.metrica-card strong {
+  font-size: 1.2rem;
+  color: #38bdf8;
+}
+
+/* Grilla 6x6 */
+.grilla-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.paso-pill {
+  background: #0f172a;
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  color: #93c5fd;
+}
+
+.grilla-6x6 {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  max-width: 470px;
+  width: 100%;
+  margin: 4px auto;
+}
+
+.celda-coord {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.celda {
+  aspect-ratio: 1 / 1;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  position: relative;
+}
+
+.celda.destino {
+  background: rgba(56, 189, 248, 0.14);
+  border-color: #0284c7;
+}
+
+.celda.obstaculo {
+  background: #334155;
+  border-color: #475569;
+  color: #cbd5e1;
+}
+
+.celda.caja {
+  border-color: #f59e0b;
+  color: #fbbf24;
+}
+
+.celda.robot {
+  background: #2563eb;
+  border-color: #93c5fd;
+  color: #fff;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.65);
+}
+
+.celda.robot-carga {
+  background: #059669;
+  border-color: #6ee7b7;
+  color: #fff;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.7);
+}
+
+.celda small {
+  font-size: 0.62rem;
+  font-weight: 400;
+  opacity: 0.75;
+}
+
+.leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  margin-right: 4px;
+}
+
+.dot-robot { background: #2563eb; }
+.dot-carga { background: #059669; }
+.dot-caja { background: #f59e0b; }
+.dot-destino { background: #0284c7; }
+.dot-obstaculo { background: #475569; }
+
+.reproductor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.velocidad-lbl {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-left: 6px;
+}
+
+/* Autómata de Pila */
+.estado-ap-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  background: #0f172a;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.sub-lbl {
+  font-size: 0.72rem;
+  color: var(--muted);
+  display: block;
+}
+
+.estado-valor {
+  font-weight: 700;
+  color: #34d399;
+  font-size: 0.95rem;
+}
+
+.token-valor {
+  font-weight: 700;
+  color: #fbbf24;
+  font-size: 0.95rem;
+}
+
+.pos-valor {
+  font-size: 0.86rem;
+  color: #e2e8f0;
+}
+
+.pila-stack {
+  background: #0f172a;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+  min-height: 110px;
+  max-height: 150px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pila-item {
+  background: #1d4ed8;
+  color: #fff;
+  text-align: center;
+  padding: 4px 8px;
+  border-radius: 5px;
+  font-family: "Consolas", monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.pila-item.pila-z0 {
+  background: #334155;
+  color: #cbd5e1;
+}
+
+.tabla-scroll {
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+
+th, td {
+  padding: 6px 8px;
+  border-bottom: 1px solid #1e293b;
+  text-align: left;
+}
+
+thead th {
+  background: #0f172a;
+  position: sticky;
+  top: 0;
+  color: #93c5fd;
+}
+
+tbody tr {
+  cursor: pointer;
+}
+
+tbody tr:hover {
+  background: rgba(59, 130, 246, 0.15);
+}
+
+tbody tr.activa {
+  background: rgba(59, 130, 246, 0.32);
+}
+
+/*WALL E*/
+
+.walle-avatar {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2px;
+}
+
+.celda.robot-carga .walle-avatar {
+  border: 2px solid #fde047;
+  box-shadow: 0 0 8px rgba(250, 204, 21, 0.85);
+}

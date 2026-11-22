@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Robot Recolector — Grupo 08 (AP + Simulador MVC)</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Robot Recolector - Grupo 8 (Columna Izquierda)</h1>
+      <p>Fundamentos Teóricos de la Informática</p>
+    </div>
+    <span class="badge-instancia">Ruiz Lucas, Sandoval Jordan, Segurado Matias</span>
+  </header>
+
+  <main class="layout">
+    <!--Programa y Pruebas-->
+    <section class="panel panel-control">
+      <h2>1. Programa de Órdenes</h2>
+      <div class="presets">
+        <label for="selectPreset">Cargar caso de prueba:</label>
+        <select id="selectPreset">
+          <option value="solucion">1. Solución completa Grupo 8 (68 tokens)</option>
+          <option value="regreso_mal">2. Regreso no inverso (Rechazo AP)</option>
+          <option value="soltar_antes">3. Soltar antes de terminar regreso (Rechazo AP)</option>
+          <option value="sin_finviaje">4. Viaje sin cierre finviaje (Rechazo AP)</option>
+          <option value="doble_agarrar">5. Segundo agarrar en mismo viaje (Rechazo AP)</option>
+          <option value="obstaculo">6. Atravesar obstáculo (Error Físico)</option>
+          <option value="agarrar_vacio">7. Agarrar en celda vacía (Error Físico)</option>
+          <option value="sin_meta">8. Válido pero no alcanza meta</option>
+          <option value="lexico">9. Token desconocido (Error Léxico)</option>
+          <option value="vacia">10. Entrada vacía (Rechazo AP)</option>
+          <option value="fuera_grilla">11. Salida de la grilla (Error Físico)</option>
+        </select>
+      </div>
+
+      <textarea id="txtPrograma" rows="7" spellcheck="false" placeholder="Escribí las órdenes separadas por espacios o saltos de línea..."></textarea>
+
+      <div class="acciones-principales">
+        <button id="btnValidar" class="btn btn-primary">Validar y Simular</button>
+        <button id="btnDescargarCsv" class="btn btn-secondary" disabled>Descargar CSV</button>
+      </div>
+
+      <div id="bannerResultado" class="banner oculto"></div>
+
+      <div class="metricas-grid">
+        <div class="metrica-card">
+          <span class="metrica-label">Sin carga</span>
+          <strong id="mSinCarga">0</strong>
+        </div>
+        <div class="metrica-card">
+          <span class="metrica-label">Con carga</span>
+          <strong id="mConCarga">0</strong>
+        </div>
+        <div class="metrica-card">
+          <span class="metrica-label">Máx. Pila (sin Z0)</span>
+          <strong id="mMaxPila">0</strong>
+        </div>
+        <div class="metrica-card">
+          <span class="metrica-label">Tokens</span>
+          <strong id="mTokens">0</strong>
+        </div>
+      </div>
+    </section>
+
+    <!--Grilla Visual-->
+    <section class="panel panel-grilla">
+      <div class="grilla-header">
+        <h2>2. Depósito (6×6)</h2>
+        <span id="lblPasoActual" class="paso-pill">Paso 0 / 0</span>
+      </div>
+
+      <div id="contenedorGrilla" class="grilla-6x6"></div>
+
+      <div class="leyenda">
+        <span><i class="dot dot-robot"></i> R: Robot</span>
+        <span><i class="dot dot-carga"></i> R*: Con caja</span>
+        <span><i class="dot dot-caja"></i> C: Caja</span>
+        <span><i class="dot dot-destino"></i> T: Destino</span>
+        <span><i class="dot dot-obstaculo"></i> X: Obstáculo</span>
+      </div>
+
+      <div class="reproductor">
+        <button id="btnInicio" class="btn btn-sm" title="Ir al inicio">⏮</button>
+        <button id="btnAnterior" class="btn btn-sm" title="Paso anterior">◀</button>
+        <button id="btnPlay" class="btn btn-accent">▶ Reproducir</button>
+        <button id="btnSiguiente" class="btn btn-sm" title="Paso siguiente">▶</button>
+        <button id="btnFinal" class="btn btn-sm" title="Ir al final">⏭</button>
+        <label class="velocidad-lbl">
+          Vel:
+          <select id="selectVelocidad">
+            <option value="700">Lenta</option>
+            <option value="350" selected>Normal</option>
+            <option value="120">Rápida</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <!--Estado del AP y Pila-->
+    <section class="panel panel-ap">
+      <h2>3. Autómata de Pila (AP)</h2>
+
+      <div class="estado-ap-box">
+        <div>
+          <span class="sub-lbl">Estado Actual</span>
+          <div id="lblEstadoAp" class="estado-valor">q0</div>
+        </div>
+        <div>
+          <span class="sub-lbl">Token Ejecutado</span>
+          <div id="lblTokenActual" class="token-valor">INICIO</div>
+        </div>
+        <div>
+          <span class="sub-lbl">Posición / Pinza</span>
+          <div id="lblPosCarga" class="pos-valor">(6, 2) · Vacía</div>
+        </div>
+      </div>
+
+      <h3>Contenido de la Pila (Tope arriba)</h3>
+      <div id="visualPila" class="pila-stack">
+        <div class="pila-item pila-z0">Z0 (fondo)</div>
+      </div>
+
+      <h3>Registro por Token</h3>
+      <div class="tabla-scroll">
+        <table id="tablaTraza">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Orden</th>
+              <th>Estado</th>
+              <th>Pila</th>
+              <th>Pos</th>
+              <th>Carga</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    window.ESTADO_INICIAL = {{ estado_inicial | tojson }};
+    window.WALLE_IMG_URL = "{{ url_for('static', filename='img/wall-e.jpg') }}";
+  </script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
